@@ -23,7 +23,7 @@ class PhylogeneticsProject(object):
 
         # Set up a project directory
         if os.path.exists(project_dir) and overwrite is False:
-            raise Exception("Project already exists! Use `PhylogeneticsProject.load` or delete the project.")
+            raise Exception("Project already exists! Use `PhylogeneticsProject.load_pickle` or delete the project.")
         elif not os.path.exists(project_dir):
             os.makedirs(project_dir)
 
@@ -44,12 +44,26 @@ class PhylogeneticsProject(object):
 
     @staticmethod
     def load_pickle(filename):
-        """"""
+        """Loads data from another project that was saved using `to_pickle`.
+
+        Parameters
+        ----------
+        filename : str
+            the full path to the pickle file to be loaded.
+        """
         with open(filename, 'rb') as f:
             self = pickle.load(f)
-        return self
+            return self
 
     def to_pickle(self, filename):
+        """Saves the PhylogeneticsProject as a pickle file that can be loaded
+        into a different project or at a later date.
+
+        Parameters
+        ----------
+        filename : str
+            the full path to the pickle file to be saved
+        """
         with open(filename, 'wb') as f:
             pickle.dump(self, f)
 
